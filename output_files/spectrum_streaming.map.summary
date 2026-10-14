@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Wed Oct 14 00:06:46 2026
+Quartus II 64-Bit Version : 13.1.0 Build 162 10/23/2013 SJ Full Version
+Revision Name : spectrum_streaming
+Top-level Entity Name : spectrum_streaming_top
+Family : Cyclone IV E
+Total logic elements : 10,477
+    Total combinational functions : 5,770
+    Dedicated logic registers : 8,398
+Total registers : 8398
+Total pins : 7
+Total virtual pins : 0
+Total memory bits : 302,208
+Embedded Multiplier 9-bit elements : 44
+Total PLLs : 1
