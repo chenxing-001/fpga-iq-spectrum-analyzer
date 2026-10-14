@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "kind": "Python integer arithmetic model, not RTL simulation",
+  "low_operand_pairs": 4194304,
+  "high_operand_and_borrow_cases": 33554432,
+  "full_signed_random_pairs": 1048576,
+  "seed": 2300123,
+  "rtl_simulation_run": false,
+  "quartus_run": false
+}

@@ -1,0 +1,4 @@
+PASS arithmetic model: all 4,194,304 low-11 operand pairs
+PASS arithmetic model: all 33,554,432 high-12 / borrow cases
+PASS arithmetic model: 1,048,576 full signed 26-bit pairs
+RTL cycle equivalence and fitted timing remain UNVERIFIED.

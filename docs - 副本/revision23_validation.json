@@ -1,0 +1,60 @@
+{
+  "revision": 23,
+  "date": "2026-10-12",
+  "release_status": "CANDIDATE_NOT_RTL_SIMULATED",
+  "baseline": "fpga_streaming_200msps_uart_pc_source22.zip",
+  "baseline_zip_sha256": "aeb9feba2bdf229247093fbb7a394e0765828147a449f1808f8ac99ae0136365",
+  "functional_regression": "NOT_RUN",
+  "arithmetic_model": {
+    "status": "PASS",
+    "kind": "Python integer arithmetic model, not RTL simulation",
+    "low_operand_pairs": 4194304,
+    "high_operand_and_borrow_cases": 33554432,
+    "full_signed_random_pairs": 1048576,
+    "seed": 2300123,
+    "rtl_simulation_run": false,
+    "quartus_run": false
+  },
+  "source_checks": {
+    "status": "PASS",
+    "details": "revision23_source_checks.json"
+  },
+  "rtl_preflight": {
+    "command": "python scripts/test_revision23.py",
+    "exit_code": 1,
+    "status": "BLOCKED_MISSING_IVERILOG_VVP",
+    "log": "revision23_rtl_preflight.log"
+  },
+  "rtl_changed": [
+    "rtl/r22_twiddle.v"
+  ],
+  "expected_latency": {
+    "cycles": 57460,
+    "microseconds_at_200MHz": 287.3,
+    "new_pipeline_stages": 0,
+    "measured_in_this_revision": false,
+    "includes_uart_serialization": false
+  },
+  "implementation": {
+    "quartus_run": false,
+    "rtl_simulation_run": false,
+    "vendor_ip_simulation_run": false,
+    "board_test_run": false,
+    "actual_le": null,
+    "actual_registers": null,
+    "actual_setup_slack_ns": null,
+    "actual_hold_slack_ns": null,
+    "timing_status": "NOT_VERIFIED"
+  },
+  "known_baseline_violations_not_directly_modified": {
+    "b16_feedback": 2,
+    "iq_source_phase_controls": 2
+  },
+  "notes": [
+    "Arithmetic checks are Python integer-model tests, not Verilog simulation or synthesis.",
+    "Existing revision22 and older PASS logs are historical evidence only.",
+    "Icarus, Quartus and other HDL tools are not installed; attempted package sources could not provide validation tools.",
+    "Quartus report and ModelSim scripts passed Tcl info-complete checks only, not tool API execution.",
+    "New borrow/high-candidate registers, b16 feedback and source phase inputs are included in targeted timing reports."
+  ]
+}

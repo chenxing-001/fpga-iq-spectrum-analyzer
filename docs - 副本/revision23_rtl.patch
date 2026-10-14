@@ -1,0 +1,58 @@
+--- rev22/rtl/r22_twiddle.v
++++ rev23/rtl/r22_twiddle.v
+@@ -3,7 +3,8 @@
+ // Nine stages (8 edge intervals), one sample/clock including valid bubbles:
+ // exponent -> ROM address/data -> ROM output -> coefficient/prefix register
+ // -> quadrant -> preadd -> multiply -> split combine -> carry/exact-axis selection.
+-// Revision22 uses the existing last two stages; no extra sample latency.
++// Revision23: direct low subtraction and parallel high borrow candidates.
++// The existing last two stages are retained; no extra sample latency.
+ module r22_twiddle #(parameter LOGN=13, ROM_FILE="data/sin_tw_8192.hex", RAM_STYLE="M9K", MIF_FILE="data/sin_tw_8192.mif")(
+  input clk,rst_n,vin,input signed [11:0] xr,xi,
+  output reg vout,output reg signed [11:0] yr,yi);
+@@ -94,13 +95,17 @@
+  reg signed [11:0] a4,b4,c4;
+  reg signed [25:0] p1,p2,p3;
+  // Only result[22:11] survives arithmetic >>>11 and 12-bit assignment.
+- // Split at bit 11: compute the discarded low-part carry and upper partial
+- // sum independently. Preserve this boundary so the 23-bit carry chain
+- // cannot be recombined through the output-stage selection.
+- wire [11:0] real_low={1'b0,p1[10:0]}+{1'b0,~p2[10:0]}+12'd1;
++ // Split at bit 11. The MSB of the zero-extended 12-bit difference is
++ // exactly the unsigned borrow of the discarded 11-bit low parts.
++ // Use ONE subtraction: rev22's A + ~B + 1 mapped to two serial chains.
++ wire [11:0] real_low_diff={1'b0,p1[10:0]}-{1'b0,p2[10:0]};
+  wire [11:0] imag_low={1'b0,p1[10:0]}+{1'b0,p3[10:0]};
+  (* preserve *) reg [11:0] real_hi6,imag_hi6;
+- (* preserve *) reg real_carry6,imag_carry6;
++ // Each high candidate depends only on high operands, never on low borrow.
++ // H0=Ahi-Bhi, H1=Ahi-Bhi-1=Ahi+~Bhi (modulo 4096).
++ // Preserve both registers; the following stage is a mux, not an incrementer.
++ (* preserve *) reg [11:0] real_hi_borrow6;
++ (* preserve *) reg real_borrow6,imag_carry6;
+  reg [6:0] vp;
+  reg [5:0] ep;
+  reg signed [11:0] er3,ei3,er4,ei4,er5,ei5,er6,ei6;
+@@ -145,14 +150,17 @@
+   a4<=a3;b4<=b3;c4<=c3;er4<=er3;ei4<=ei3;
+   // Stage 6 preserves all three multipliers and their operand widths.
+   p1<=ab4*c4;p2<=b4*cs4;p3<=a4*sc4;er5<=er4;ei5<=ei4;
+-  // Stage 7: parallel 11-bit low / 12-bit high adders. Subtraction uses
+-  // p1 + ~p2 + 1; the initial +1 belongs ONLY to the low-part addition.
+-  real_hi6<=p1[22:11]+(~p2[22:11]);real_carry6<=real_low[11];
++  // Stage 7: independent low borrow and both 12-bit high candidates.
++  // No three-operand expression and no low-to-high combinational carry.
++  real_hi6<=p1[22:11]-p2[22:11];
++  real_hi_borrow6<=p1[22:11]+(~p2[22:11]);
++  real_borrow6<=real_low_diff[11];
+   imag_hi6<=p1[22:11]+p3[22:11];imag_carry6<=imag_low[11];
+   er6<=er5;ei6<=ei5;
+-  // Stage 8: parallel carry correction followed by the existing exact mux.
++  // Stage 8: real borrow selection / unchanged imaginary carry correction,
++  // followed by the existing exact-axis mux.
+   // Signed truncation, modulo wrap, valid, and exact-axis latency are unchanged.
+-  yr<=ep[5] ? er6 : add_carry12(real_hi6,real_carry6);
++  yr<=ep[5] ? er6 : (real_borrow6 ? real_hi_borrow6 : real_hi6);
+   yi<=ep[5] ? ei6 : add_carry12(imag_hi6,imag_carry6);
+  end
+ endmodule

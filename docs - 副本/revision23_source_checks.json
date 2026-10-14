@@ -1,0 +1,54 @@
+{
+  "changed_rtl": [
+    "rtl/r22_twiddle.v"
+  ],
+  "unchanged_rtl": [
+    "rtl/fft8192_stream.v",
+    "rtl/fft_delay_ram.v",
+    "rtl/fft_twiddle_rom.v",
+    "rtl/iq_source.v",
+    "rtl/peak_interleaved.v",
+    "rtl/pll_50_to_200.v",
+    "rtl/power_encode_pipe.v",
+    "rtl/power_sum24.v",
+    "rtl/power_sum24_pipe.v",
+    "rtl/sdf_butterfly.v",
+    "rtl/snapshot_analyzer.v",
+    "rtl/spectrum_power_ram.v",
+    "rtl/spectrum_streaming_top.v",
+    "rtl/square12_pipe.v",
+    "rtl/uart_packet.v"
+  ],
+  "unchanged_config_and_rom_files": 22,
+  "frozen_rev22_reference_normalized_matches": {
+    "r22_twiddle": true,
+    "fft8192_stream": true
+  },
+  "python_syntax_files": 22,
+  "tcl_balanced_structure": {
+    "scripts/report_timing.tcl": true,
+    "scripts/run_vendor_revision23.do": true
+  },
+  "rtl_preflight_exit_code": 1,
+  "rtl_simulation": "BLOCKED: iverilog and vvp are not installed",
+  "quartus": "NOT_RUN",
+  "rtl_sha256": {
+    "rtl/fft8192_stream.v": "30115b56ed02e2e26747ccba5e1f6b83d8e0d6d71b41f82a3ad1cfd12d48bb17",
+    "rtl/fft_delay_ram.v": "d5d0bacaa92c3b8ca1067185574aa4cc3dff2626a63ef97ce046cf81845ceb46",
+    "rtl/fft_twiddle_rom.v": "439736e89770adb4bb75d228793fced9e18bc74968b6f603b602eaa7d720fd3e",
+    "rtl/iq_source.v": "25aace0720ea2363811109374ec25f8903175b0a2791799cfec4e2fdb96e5c86",
+    "rtl/peak_interleaved.v": "67116cede5e630d2fa5575abd094327a9d0b51d475bdc06bfe670062aea35421",
+    "rtl/pll_50_to_200.v": "8daf49cf04217c3e61d40b43d429f548f872516d2eafa34ba17d6ecb443c499f",
+    "rtl/power_encode_pipe.v": "a73192c63b757c3aad8ed2e12226f3b07d2a2bed7c02fbf4dde2d77959be8605",
+    "rtl/power_sum24.v": "856b7d3e1677542e483588d8d07ac4db13870f801d334f55bc30535a13fa810e",
+    "rtl/power_sum24_pipe.v": "be99012a6269b75c2bcca3d3598b40c104d7fa5df6b93986306ebcea98e5837c",
+    "rtl/r22_twiddle.v": "5bacb4ecb03d8d22f80fa41996373eedd5853bb7fbe852724229eab78e23f7d3",
+    "rtl/sdf_butterfly.v": "480ba294c34f0980e38b41765684b993b1b67855085b9aa6bec0c8987c45ccf5",
+    "rtl/snapshot_analyzer.v": "3636ceb08447f3d58468d5833456419bc8cb6226c9a94c50aaa46927586d9cd5",
+    "rtl/spectrum_power_ram.v": "7ca2bb8ea625884095a1a74a7415e961d88fe8b030ce5762310b32d36510d67a",
+    "rtl/spectrum_streaming_top.v": "62eaf972efc801bce69af74884bc980c540685eeb08dbda59c950e00bb2404b5",
+    "rtl/square12_pipe.v": "7184f3fbee337af2a740059b4418205b839d292edaa320ddd667210345a02d0d",
+    "rtl/uart_packet.v": "ee1d17da35e4af22b03d8ee6a67dc0a87e5924651f9ba4a329b858a8046849d0"
+  },
+  "tcl_check_scope": "Tcl info complete only; no Quartus/ModelSim commands executed"
+}
