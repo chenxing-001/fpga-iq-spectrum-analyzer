@@ -1,0 +1,60 @@
+set_global_assignment -name FAMILY "Cyclone IV E"
+set_global_assignment -name DEVICE EP4CE10F17C8
+set_global_assignment -name TOP_LEVEL_ENTITY spectrum_streaming_top
+set_global_assignment -name ORIGINAL_QUARTUS_VERSION 13.1
+set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
+set_global_assignment -name SEARCH_PATH rtl
+set_global_assignment -name SDC_FILE spectrum_streaming.sdc
+set_global_assignment -name OPTIMIZATION_TECHNIQUE SPEED
+set_global_assignment -name FITTER_EFFORT "STANDARD FIT"
+set_global_assignment -name PHYSICAL_SYNTHESIS_COMBO_LOGIC ON
+set_global_assignment -name PHYSICAL_SYNTHESIS_REGISTER_DUPLICATION ON
+set_global_assignment -name PHYSICAL_SYNTHESIS_REGISTER_RETIMING OFF
+set_global_assignment -name PHYSICAL_SYNTHESIS_EFFORT EXTRA
+set_global_assignment -name SEED 1
+set_global_assignment -name AUTO_SHIFT_REGISTER_RECOGNITION OFF
+set_global_assignment -name VERILOG_MACRO "USE_ALTERA_TDP_ROM=1"
+set_global_assignment -name VERILOG_MACRO "USE_ALTERA_POWER_RAM=1"
+set_global_assignment -name VERILOG_MACRO "USE_ALTERA_FFT_DELAY_RAM=1"
+set_global_assignment -name VERILOG_FILE rtl/fft_delay_ram.v
+set_global_assignment -name VERILOG_FILE rtl/peak_interleaved.v
+set_global_assignment -name VERILOG_FILE rtl/power_encode_pipe.v
+set_global_assignment -name VERILOG_FILE rtl/power_sum24.v
+set_global_assignment -name VERILOG_FILE rtl/power_sum24_pipe.v
+set_global_assignment -name VERILOG_FILE rtl/square12_pipe.v
+set_global_assignment -name VERILOG_FILE rtl/spectrum_power_ram.v
+set_global_assignment -name VERILOG_FILE rtl/fft_twiddle_rom.v
+set_global_assignment -name VERILOG_FILE rtl/fft8192_stream.v
+set_global_assignment -name VERILOG_FILE rtl/iq_source.v
+set_global_assignment -name VERILOG_FILE rtl/pll_50_to_200.v
+set_global_assignment -name VERILOG_FILE rtl/r22_twiddle.v
+set_global_assignment -name VERILOG_FILE rtl/sdf_butterfly.v
+set_global_assignment -name VERILOG_FILE rtl/snapshot_analyzer.v
+set_global_assignment -name VERILOG_FILE rtl/spectrum_streaming_top.v
+set_global_assignment -name VERILOG_FILE rtl/uart_packet.v
+
+# Clock/reset/UART/LED pins preserved from tested baseline.
+set_location_assignment PIN_M2  -to sys_clk
+set_location_assignment PIN_M1  -to sys_rst_n
+set_location_assignment PIN_M7  -to uart_txd
+set_location_assignment PIN_D11 -to led[0]
+set_location_assignment PIN_C11 -to led[1]
+set_location_assignment PIN_E10 -to led[2]
+set_location_assignment PIN_F9  -to led[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sys_clk
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sys_rst_n
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to uart_txd
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to led[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to led[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to led[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to led[3]
+
+# All former display pins are unused and tri-stated.
+set_global_assignment -name RESERVE_ALL_UNUSED_PINS "AS INPUT TRI-STATED"
+
+set_global_assignment -name LAST_QUARTUS_VERSION 13.1
+set_global_assignment -name RESERVE_ALL_UNUSED_PINS_NO_OUTPUT_GND "AS INPUT TRI-STATED"
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
